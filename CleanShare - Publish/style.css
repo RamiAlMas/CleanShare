@@ -1,0 +1,402 @@
+/* style.css: how CleanShare looks.
+   All colours are defined once here as variables, with a dark-mode version below. */
+
+:root {
+  --bg: #f4f5fb;
+  --card: #ffffff;
+  --text: #1c1d2b;
+  --muted: #646778;
+  --border: #e2e4ee;
+  --accent: #4f46e5;
+  --accent-hover: #4338ca;
+  --accent-soft: #eef0ff;
+  --danger: #b42318;
+  --danger-soft: #fef1f0;
+  --warning: #9a5b00;
+  --warning-soft: #fff7e6;
+  --safe: #16794c;
+  --safe-soft: #ecf9f2;
+  --shadow: 0 1px 2px rgb(20 20 50 / 0.04), 0 8px 24px rgb(20 20 50 / 0.06);
+  --radius: 18px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1017;
+    --card: #191a24;
+    --text: #ecedf3;
+    --muted: #9a9cad;
+    --border: #2c2e3c;
+    --accent: #8b85ff;
+    --accent-hover: #a29dff;
+    --accent-soft: #23234a;
+    --danger: #ff8a80;
+    --danger-soft: #3a1d1d;
+    --warning: #f5c26b;
+    --warning-soft: #352a14;
+    --safe: #6ee7a8;
+    --safe-soft: #16302a;
+    --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 24px rgb(0 0 0 / 0.3);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.container {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 40px 16px 32px;
+}
+
+/* --- Header --- */
+
+.site-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.logo {
+  width: 48px;
+  height: 48px;
+}
+
+.logo-shield {
+  fill: var(--accent);
+  stroke: none;
+}
+
+.logo-check {
+  stroke: #fff;
+  stroke-width: 2;
+}
+
+h1 {
+  margin: 8px 0 4px;
+  font-size: 2rem;
+  letter-spacing: -0.02em;
+}
+
+.tagline {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+/* --- Cards --- */
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px;
+}
+
+/* --- Drop zone --- */
+
+.drop-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 48px 20px;
+  border: 2px dashed var(--border);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+
+.drop-zone:hover,
+.drop-zone.dragging {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.drop-icon {
+  width: 52px;
+  height: 52px;
+  color: var(--accent);
+  stroke-width: 1.6;
+  margin-bottom: 12px;
+}
+
+.drop-title {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.drop-hint {
+  margin: 4px 0 20px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* On phones and tablets there is no dragging, so show different text. */
+.for-touch {
+  display: none;
+}
+
+@media (hover: none) {
+  .for-mouse { display: none; }
+  .for-touch { display: inline; }
+}
+
+.error {
+  margin: 16px 0 0;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+/* --- Buttons --- */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 0 22px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+.button svg {
+  width: 20px;
+  height: 20px;
+}
+
+.button.primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.button.primary:hover {
+  background: var(--accent-hover);
+}
+
+.button.secondary {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.button.secondary:hover {
+  background: var(--bg);
+}
+
+.button:focus-visible,
+.drop-zone:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .button.primary { color: #0f1017; }
+}
+
+/* --- Results --- */
+
+.file-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.preview {
+  width: 88px;
+  height: 88px;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: 12px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+}
+
+.file-details {
+  min-width: 0; /* lets long file names wrap instead of overflowing */
+}
+
+.file-name {
+  margin: 0;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.file-info {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.summary {
+  padding: 16px 18px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  outline: none;
+}
+
+.summary h2 {
+  margin: 0 0 2px;
+  font-size: 1.15rem;
+}
+
+.summary p {
+  margin: 0;
+}
+
+.summary.danger  { background: var(--danger-soft);  color: var(--danger); }
+.summary.warning { background: var(--warning-soft); color: var(--warning); }
+.summary.safe    { background: var(--safe-soft);    color: var(--safe); }
+
+.finding-group + .finding-group {
+  margin-top: 18px;
+}
+
+.finding-group h3 {
+  margin: 0 0 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.finding-group dl {
+  margin: 0;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.finding {
+  display: grid;
+  grid-template-columns: minmax(120px, 38%) 1fr;
+  gap: 12px;
+  padding: 10px 14px;
+}
+
+.finding + .finding {
+  border-top: 1px solid var(--border);
+}
+
+.finding dt {
+  color: var(--muted);
+}
+
+.finding dd {
+  margin: 0;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.actions .button.primary {
+  flex: 1;
+}
+
+.verified {
+  margin: 14px 0 0;
+  color: var(--safe);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.verified.not-verified {
+  color: var(--danger);
+}
+
+/* --- Footer --- */
+
+.privacy-note {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.privacy-note svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* --- Small screens (phones) --- */
+
+@media (max-width: 520px) {
+  .container {
+    padding-top: 24px;
+  }
+
+  h1 {
+    font-size: 1.7rem;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .drop-zone {
+    padding: 36px 16px;
+  }
+
+  .drop-zone .button {
+    width: 100%;
+  }
+
+  .finding {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .finding dt {
+    font-size: 0.85rem;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .privacy-note {
+    text-align: left;
+  }
+}
